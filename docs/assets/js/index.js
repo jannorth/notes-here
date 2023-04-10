@@ -42,13 +42,27 @@ const saveNote = (note) =>
     body: JSON.stringify(note),
   });
 
-const deleteNote = (id) =>
-  fetch(`/api/notes/${id}`, {
+const deleteNote = (noteId) =>
+  fetch(`/api/notes/${noteId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
+  })
+  .then(() => {
+    // remove the deleted note element from the DOM
+    const noteElement = document.getElementById(`note-${noteId}`);
+    noteElement.remove();
   });
+  // add an event listener for the delete button
+const deleteButtons = document.querySelectorAll('.delete');
+deleteButtons.forEach((button) => {
+  button.addEventListener('click', (event) => {
+    const noteId = event.target.dataset.noteId;
+    deleteNote(noteId);
+  });
+});
+
 
 const renderActiveNote = () => {
   hide(saveNoteBtn);
@@ -146,6 +160,7 @@ const renderNoteList = async (notes) => {
         'text-danger',
         'delete-note'
       );
+      
       delBtnEl.addEventListener('click', handleNoteDelete);
 
       liEl.append(delBtnEl);
