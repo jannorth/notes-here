@@ -3,14 +3,12 @@ const path = require("path");
 const fs = require("fs");
 const db = require("./db/db.json");
 
-
 const app = express();
-
 const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("/public"));
+app.use(express.static("public"));
 
 app.get("/", (req, res) =>
   res.sendFile(path.join(__dirname, "public/index.html"))
@@ -25,9 +23,8 @@ app.get("/api/notes", (req, res) => res.json(db));
 // saves notes in column on left
 app.post("/api/notes", (req, res) => {
   console.log(req.body.text);
-  console.log(req.params.text);
   const newNote = {
-    id: req.params.id,
+    id: req.body.id,
     title: req.body.title,
     text: req.body.text,
   };
@@ -39,12 +36,14 @@ app.post("/api/notes", (req, res) => {
   });
 });
 
+// promise to render on right
+
 // when click on saved note, it appears on right column
 
 
 // delete note
 app.delete("/api/notes/:id", (req, res) => {
-  const noteId = req.params.id;
+  const noteId = req.body.id;
   const updatedNotes = db.filter((note) => note.id !== noteId);
 
   fs.writeFile(
