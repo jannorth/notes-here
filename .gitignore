@@ -1,9 +1,10 @@
-node_modules
+
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,node
 
 ### macOS ###
 # General
+node_modules
 .DS_Store
 .AppleDouble
 .LSOverride
