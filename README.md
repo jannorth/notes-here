@@ -10,7 +10,7 @@ Navigate to the app, and click on the link to add a note.
 
 ## Usage
 
-
+https://secure-lowlands-36467.herokuapp.com/
 
 ![Notes Home Page](assets/notes2.png)
 
